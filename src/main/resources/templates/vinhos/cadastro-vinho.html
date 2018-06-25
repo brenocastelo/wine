@@ -107,11 +107,11 @@
 					</div>
 				</div>
 
-				<form method="POST" class="form-vertical  js-form-loading">
+				<form method="POST" class="form-vertical  js-form-loading" th:object="${vinho}" 
+					th:action="@{/vinhos/novo}">
 					<div class="form-group">
 						<label for="nome">Nome</label>
-
-						<input id="nome" type="text" class="form-control" />
+						<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
 					</div>
 
 					<div class="row">
@@ -119,9 +119,9 @@
 							<div class="form-group">
 								<label for="tipo">Tipo</label>
 
-								<select id="tipo" class="form-control">
+								<select id="tipo" class="form-control" th:field="*{tipo}">
 									<option value="">Selecione o tipo</option>
-									<option>Opção 1</option>
+									<option th:each="tipo : ${tipos}" th:value=${tipo} th:text="#{|tipoVinho.${tipo}|}">Opção 1</option>
 								</select>
 							</div>
 						</div>
@@ -129,8 +129,7 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="valor">Valor</label>
-								
-								<input id="valor" type="text" class="form-control js-moeda" />
+								<input id="valor" type="text" class="form-control js-moeda" th:field="*{valor}"/>
 							</div>
 						</div>
 					</div>
