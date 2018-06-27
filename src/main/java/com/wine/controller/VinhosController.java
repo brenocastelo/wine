@@ -1,12 +1,16 @@
 package com.wine.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wine.model.TipoVinho;
 import com.wine.model.Vinho;
@@ -29,10 +33,18 @@ public class VinhosController {
 	}
 
 	@PostMapping("/novo")
-	public String cadastrar(Vinho vinho) {
-		vinhos.save(vinho);
+	public ModelAndView cadastrar(@Valid Vinho vinho, BindingResult result, RedirectAttributes attributes) {
+		ModelAndView mv = new ModelAndView("redirect:/vinhos/novo");
 
-		return "redirect:/vinhos/novo";
+		if (result.hasErrors()) {
+			return novo(vinho);
+		}
+		
+		vinhos.save(vinho);
+		
+		attributes.addFlashAttribute("mensagem", "Vinho salvo com sucesso!");
+
+		return mv;
 	}
 
 	@GetMapping("/{id}")
