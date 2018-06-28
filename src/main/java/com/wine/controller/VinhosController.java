@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,11 +40,18 @@ public class VinhosController {
 		if (result.hasErrors()) {
 			return novo(vinho);
 		}
-		
+
 		vinhos.save(vinho);
-		
 		attributes.addFlashAttribute("mensagem", "Vinho salvo com sucesso!");
 
+		return mv;
+	}
+
+	@GetMapping
+	public ModelAndView listar() {
+		ModelAndView mv = new ModelAndView("/vinhos/lista-vinhos");
+		mv.addObject("vinhos", vinhos.findAll());
+		
 		return mv;
 	}
 
@@ -51,4 +59,29 @@ public class VinhosController {
 	public ModelAndView editar(@PathVariable Long id) {
 		return novo(vinhos.getOne(id));
 	}
+	
+	@DeleteMapping("/{id}")
+	public String remover(@PathVariable Long id, RedirectAttributes attributes) {
+		vinhos.deleteById(id);
+		
+		attributes.addFlashAttribute("mensagem","Vinho removido com sucesso");
+		
+		return "redirect:/vinhos";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -24,7 +24,7 @@
 		<java.version>1.8</java.version>
 		
 		<thymeleaf.version>3.0.8.RELEASE</thymeleaf.version>
-		<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
+		<thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
 	</properties>
 
 	<dependencies>
@@ -56,6 +56,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		    
+		<dependency>
+        	<groupId>nz.net.ultraq.thymeleaf</groupId>
+        	<artifactId>thymeleaf-layout-dialect</artifactId>
+    	</dependency>
 	</dependencies>
 
 	<build>
