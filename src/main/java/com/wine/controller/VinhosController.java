@@ -68,7 +68,7 @@ public class VinhosController {
 	public String remover(@PathVariable Long id, RedirectAttributes attributes) {
 		vinhos.deleteById(id);
 		
-		attributes.addFlashAttribute("mensagem","Vinho removido com sucesso");
+		attributes.addFlashAttribute("mensagem","Vinho removido com sucesso!");
 		
 		return "redirect:/vinhos";
 	}
