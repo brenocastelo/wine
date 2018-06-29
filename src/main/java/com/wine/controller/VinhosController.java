@@ -1,5 +1,7 @@
 package com.wine.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,7 @@ public class VinhosController {
 		if (result.hasErrors()) {
 			return novo(vinho);
 		}
-
+		
 		vinhos.save(vinho);
 		attributes.addFlashAttribute("mensagem", "Vinho salvo com sucesso!");
 
@@ -56,8 +58,10 @@ public class VinhosController {
 	}
 
 	@GetMapping("/{id}")
-	public ModelAndView editar(@PathVariable Long id) {
-		return novo(vinhos.getOne(id));
+	public ModelAndView editar(@PathVariable("id") Long id) {
+		Optional<Vinho> vinho = vinhos.findById(id);
+		
+		return novo(vinho.get());
 	}
 	
 	@DeleteMapping("/{id}")
